@@ -1,0 +1,29 @@
+#recipe-list{
+  width: 90%;
+  margin: 0 auto;
+}
+
+.main-page-header{
+  width: 100%;
+}
+
+.main-page-header h1{
+  font-size: 3em;
+  text-align: center;
+}
+
+.recipe-container {
+  width: 100%;
+}
+
+.recipe-container ul {
+  list-style: none;
+}
+
+.recipe-container li{
+  display: inline-block;
+}
+
+.recipe-container img{
+  width: 30%;
+}

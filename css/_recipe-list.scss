@@ -12,14 +12,18 @@
   text-align: center;
 }
 
-.recipe-pic-container {
+.recipe-container {
   width: 100%;
 }
 
-.recipe-pic-container ul {
+.recipe-container ul {
   list-style: none;
 }
 
-.photo-div {
+.recipe-container li{
+  display: inline-block;
+}
+
+.recipe-container img{
   width: 30%;
 }

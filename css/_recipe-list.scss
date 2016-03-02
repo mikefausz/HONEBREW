@@ -1,6 +1,12 @@
-#recipe-list{
+#brewery-list{
   width: 90%;
   margin: 0 auto;
+  nav {
+    text-align: center;
+  }
+  h3, form {
+    display: inline-block;
+  }
 }
 
 .main-page-header{

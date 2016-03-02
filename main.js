@@ -126,6 +126,7 @@ var sudsTrackerApp = {
     var breweryListTempl = _.template(templates.breweryList);
     console.log(brewery);
     return breweryListTempl(brewery);
+    asdfdsafafas
   },
 };
 kfhgfuw

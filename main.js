@@ -28,7 +28,7 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    // sudsTrackerApp.useGeolocation();
+    sudsTrackerApp.useGeolocation();
   },
 
   events: function() {
@@ -38,8 +38,10 @@ var sudsTrackerApp = {
       // if input entered
       if ($('input[type="text"]').val()){
         var location = $('input[type="text"]').val().trim().replace(" ", '');
+        var distance = $(this).children("select").val();
+
         $('input[type="text"]').val("");
-        var coordObj = sudsTrackerApp.getBreweriesFromInput(location);
+        var coordObj = sudsTrackerApp.getBreweriesFromInput(location,distance);
         // TODO get data from coordinates
       }
         console.log('using geolocation');
@@ -49,7 +51,7 @@ var sudsTrackerApp = {
     });
   },
 
-  getBreweriesFromInput: function(location) {
+  getBreweriesFromInput: function(location, distance) {
     $.ajax({
       url: sudsTrackerApp.locationUrl + location,
       method: "GET",
@@ -62,7 +64,7 @@ var sudsTrackerApp = {
             longitude: coords.lng,
           }
         };
-        sudsTrackerApp.getBreweryData(newCoordObj);
+        sudsTrackerApp.getBreweryData(newCoordObj, distance);
       },
       error: function(err) {
         console.log('err');
@@ -81,7 +83,7 @@ var sudsTrackerApp = {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },
 
-  getBreweryData: function(posObj) {
+  getBreweryData: function(posObj, distance) {
     console.log('this is the object containing lat and lng: ', posObj);
     var urlRight = sudsTrackerApp.buildTrackerURL(posObj.coords);
     var urlObj = { url: sudsTrackerApp.buildTrackerURL(posObj.coords) };
@@ -95,7 +97,7 @@ var sudsTrackerApp = {
       success: function (breweryData) {
         console.log(JSON.parse(breweryData));
         window.glob = JSON.parse(breweryData);
-        sudsTrackerApp.addBreweriesToDOM(JSON.parse(breweryData).data, $('ul'));
+        sudsTrackerApp.addBreweriesToDOM(JSON.parse(breweryData).data, distance, $('ul'));
       },
       error: function(err) {
         console.log('err');
@@ -103,10 +105,12 @@ var sudsTrackerApp = {
     });
   },
 
-  addBreweriesToDOM: function(data, $target) {
+  addBreweriesToDOM: function(data, distance, $target) {
     var breweryHtmlStr = "";
     data.forEach(function(brewery) {
-      breweryHtmlStr += sudsTrackerApp.buildBreweryHtml(brewery);
+    if (brewery.distance < distance) {
+        breweryHtmlStr += sudsTrackerApp.buildBreweryHtml(brewery);
+      }
     });
     $target.html(breweryHtmlStr);
   },
@@ -124,4 +128,3 @@ var sudsTrackerApp = {
     return breweryListTempl(brewery);
   },
 };
-Status API Training Shop Blog About Pricing

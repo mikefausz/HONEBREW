@@ -25,12 +25,9 @@ var sudsTrackerApp = {
   init: function() {
     sudsTrackerApp.events();
     sudsTrackerApp.styling();
-
   },
 
   styling: function() {
-  sudsTrackerApp.useGeolocation();
-  sudsTrackerApp.initMap();
     // sudsTrackerApp.useGeolocation();
   },
 
@@ -45,10 +42,9 @@ var sudsTrackerApp = {
         var coordObj = sudsTrackerApp.getBreweriesFromInput(location);
         // TODO get data from coordinates
       }
-
-      $('#home').removeClass('visible');
-      $('#brewery-list').addClass('visible');
-
+        console.log('using geolocation');
+        $('#home').removeClass('visible');
+        $('#brewery-list').addClass('visible');
 
     });
   },
@@ -126,7 +122,6 @@ var sudsTrackerApp = {
     var breweryListTempl = _.template(templates.breweryList);
     console.log(brewery);
     return breweryListTempl(brewery);
-    asdfdsafafas
   },
 };
-kfhgfuw
+Status API Training Shop Blog About Pricing

@@ -28,7 +28,7 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    // sudsTrackerApp.useGeolocation();
+    sudsTrackerApp.useGeolocation();
   },
 
   events: function() {
@@ -41,6 +41,9 @@ var sudsTrackerApp = {
         $('input[type="text"]').val("");
         var coordObj = sudsTrackerApp.getBreweriesFromInput(location);
         // TODO get data from coordinates
+      }
+      else {
+        sudsTrackerApp.useGeolocation();
       }
         console.log('using geolocation');
         $('#home').removeClass('visible');

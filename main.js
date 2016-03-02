@@ -12,16 +12,12 @@ templates.recipeView = [
   // a template for a full recipe listing on recipe view page
 ].join();
 
-var sudsTrackerApp = {
-  url: '',
+var recipeApp = {
+  url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients  ',
 
   init: function() {
     recipeApp.events();
     recipeApp.styling();
-    apiKey: '68288be6b4c8586574d85c0174da8682',
-    getLocation: function () {
-      navigator.geolocation.getCurrentPosition(sudsTrackerApp.onPosition);
-}
   },
 
   styling: function() {
@@ -33,28 +29,27 @@ var sudsTrackerApp = {
       event.preventDefault();
       // add visible class to recipeList section
       // remove visible class from other sections
-      console.log("Submit");
-      var submitIngredients = $('input[type="text"]').val();
-      $('input[type="text"]').val("");
-
-      var url ='http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
-      recipeApp.getRecipes(url); // filter recipes by user input
+      recipeApp.getRecipes($('input').val()); // filter recipes by user input
     });
-  }
 
-  onPosition: function (coordsObj) {
-    console.log('this is the object containing lat and lng: ', coordsObj);
+    // CLICK EVENT for a recipe listing
+    // preventDefault
+    // add visible class to recipeView section
+    // remove visible class from other sections
+    recipeApp.getRecipe();
+  },
+
+  getRecipes: function(ingredients) {
+    // parse input string for individual ingredients
+    // construct GET url from ingredients
     $.ajax({
-      url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
-      method: "GET",
-      dataType: "json",
-      success: function (responseFromBreweryDB) {
-         sudsTrackerApp.getData(responseFromWeatherAPI);
+      method: 'GET',
+      url: '',
+      success: function(recipes) {
+        recipeApp.addRecipesToDom();
       }
     });
   },
-  buildTrackerURL: function (coords) {
-      return 'http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
 
   addRecipesToDom: function(recipes, $target) {
     var recipeListStr = "";

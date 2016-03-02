@@ -28,24 +28,26 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    // sudsTrackerApp.useGeolocation();
+    sudsTrackerApp.useGeolocation();
   },
 
   events: function() {
     $('form').on('submit', function(event) {
       event.preventDefault();
       console.log("Submit");
-      // if input entered
-      if ($('input[type="text"]').val()){
-        var location = $('input[type="text"]').val().trim().replace(" ", '');
-        $('input[type="text"]').val("");
+      if ($(this).children('input').val()){
+        console.log("SOMETHING TYPED");
+        var location = $(this).children('input').val().trim().replace(" ", '');
+        console.log(location);
+        $(this).children('input').val("");
         var coordObj = sudsTrackerApp.getBreweriesFromInput(location);
-        // TODO get data from coordinates
       }
-        console.log('using geolocation');
-        $('#home').removeClass('visible');
-        $('#brewery-list').addClass('visible');
-
+      else {
+        sudsTrackerApp.useGeolocation();
+      }
+      console.log('using geolocation');
+      $('#home').removeClass('visible');
+      $('#brewery-list').addClass('visible');
     });
   },
 
@@ -86,7 +88,6 @@ var sudsTrackerApp = {
     var urlRight = sudsTrackerApp.buildTrackerURL(posObj.coords);
     var urlObj = { url: sudsTrackerApp.buildTrackerURL(posObj.coords) };
     sudsTrackerApp.initMap(posObj.coords);
-    // console.log(urlObj);
     $.ajax({
       url: 'https://sudstracker.herokuapp.com/any-request/' + encodeURIComponent(urlRight),
       // url: '10.0.10.68:3000/any-request/',
@@ -112,9 +113,6 @@ var sudsTrackerApp = {
   },
 
   buildTrackerURL: function (coordsObj) {
-      // console.log('in buildTrackerURL');
-      // console.log('lat =' + coordsObj.latitude + ' lng=' + coordsObj.longitude);
-      // console.log(sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude);
       return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
   },
 

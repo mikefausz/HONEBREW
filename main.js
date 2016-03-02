@@ -56,6 +56,7 @@ initMap: function (){
           zoom: 8});
 },
 
+
   useGeolocation: function () {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },

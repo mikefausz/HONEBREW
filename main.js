@@ -4,13 +4,15 @@ $(document).ready(function() {
 
 var templates = {
   breweryList: [
->>>>>>> 44a0772e7b2f58a3f2a5722594bd362804d4b855
   // STILL TODO
   // a template for each brewery listing in the photo grid
-  '<a href="<%= brewery.attributes.website %>">',
+  '<a href="<%= brewery.website %>">',
     '<li>',
-      '<img src="<%= brewery.images.large %>" alt="" />',
+      '<h2><%= brewery.name %></h2>',
       '<h2><%= distance %></h2>',
+      '<% if(brewery.images){%>',
+      '<img src="<%= brewery.images.large %>" alt="" />',
+      '<% } %>',
     '<li>',
   '</a>'
   ].join(""),

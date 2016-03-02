@@ -36,11 +36,11 @@ var sudsTrackerApp = {
       event.preventDefault();
       console.log("Submit");
       // if input entered
-      if ($('input[type="text"]').val()){
-        var location = $('input[type="text"]').val().trim().replace(" ", '');
+      if ($(this).children('input').val()){
+        var location = $(this).children('input').val().trim().replace(" ", '');
         var distance = $(this).children("select").val();
 
-        $('input[type="text"]').val("");
+        $(this).children('input').val('');
         var coordObj = sudsTrackerApp.getBreweriesFromInput(location,distance);
         // TODO get data from coordinates
       }

@@ -23,10 +23,12 @@ var sudsTrackerApp = {
   init: function() {
     sudsTrackerApp.events();
     sudsTrackerApp.styling();
+
   },
 
   styling: function() {
-    // don't know if we'll need this
+  sudsTrackerApp.useGeolocation();
+  sudsTrackerApp.initMap();
   },
 
   events: function() {
@@ -40,15 +42,16 @@ var sudsTrackerApp = {
         // TODO get coordinates from city/zip input
         // TODO get data from coordinates
       }
-      // if no input, use current location
-      else {
-        console.log('using geolocation');
-        sudsTrackerApp.useGeolocation();
-      }
+
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
     });
   },
+initMap: function (){
+  var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8});
+},
 
   useGeolocation: function () {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);

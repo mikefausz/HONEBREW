@@ -8,7 +8,19 @@
     display: inline-block;
   }
 }
-
+li {
+  width: 100%;
+  div {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .brew-photo {
+    width: 30%;
+    background-position: center;
+    height: 125px;
+    margin-right: 15px;
+  }
+}
 .main-page-header{
   width: 100%;
 }

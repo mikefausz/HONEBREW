@@ -12,6 +12,11 @@ section {
   display: block;
 }
 
+a {
+  color: black;
+  text-decoration: none;
+}
+
 @import "home";
 @import "recipe-list";
 @import "recipe-view";

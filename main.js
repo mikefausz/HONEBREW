@@ -1,27 +1,25 @@
 $(document).ready(function() {
-  recipeApp.init();
+  sudsTrackerApp.init();
 });
 
 var templates = [];
 
-templates.recipeList = [
-  // a template for each recipe listing in the photo grid
+templates.breweryList = [
+  // a template for each brewery listing in the photo grid
 ].join();
 
-templates.recipeView = [
-  // a template for a full recipe listing on recipe view page
-].join();
 
-var recipeApp = {
-  url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients  ',
+var sudsTrackerApp = {
+  url: '',
+  apiKey: '68288be6b4c8586574d85c0174da8682',
 
   init: function() {
-    recipeApp.events();
-    recipeApp.styling();
+    sudsTrackerApp.events();
+    sudsTrackerApp.styling();
   },
 
   styling: function() {
-    // don't know if we'll need this
+    sudsTrackerApp.getLocation();
   },
 
   events: function() {
@@ -29,8 +27,17 @@ var recipeApp = {
       event.preventDefault();
       // add visible class to recipeList section
       // remove visible class from other sections
-      recipeApp.getRecipes($('input').val()); // filter recipes by user input
+
+      console.log("Submit");
+      var submitIngredients = $('input[type="text"]').val();
+      $('input[type="text"]').val("");
+      buildTrackerURL(coords);
     });
+  },
+
+  getLocation: function () {
+    navigator.geolocation.getCurrentPosition(sudsTrackerApp.onPosition);
+  },
 
     // CLICK EVENT for a recipe listing
     // preventDefault
@@ -43,30 +50,33 @@ var recipeApp = {
     // parse input string for individual ingredients
     // construct GET url from ingredients
     $.ajax({
-      method: 'GET',
-      url: '',
-      success: function(recipes) {
-        recipeApp.addRecipesToDom();
+      url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
+      method: "GET",
+      dataType: "json",
+      success: function (dataFromBreweryDB) {
+         sudsTrackerApp.getData(dataBreweryDB);
       }
     });
   },
 
-  addRecipesToDom: function(recipes, $target) {
-    var recipeListStr = "";
-    // for each recipe in recipes
-      // create a string from the recipeList template
-      // add the string to recipeListStr
-    // append/replace recipeListStr to recipeList html
+  buildTrackerURL: function (coords) {
+      return 'http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
   },
 
-  constructRecipeHtml: function(templateStr, recipe) {
-    // construct an html string for the given recipe
+  addBreweriesToDom: function(breweries, $target) {
+    var breweryListStr = "";
+    // for each brewery in breweries
+      // create a string from the breweryList template
+      // add the string to breweryListStr
+    // append/replace breweryListStr to breweryList html
+  },
+
+  constructBreweryHtml: function(templateStr, brewery) {
+    // construct an html string for the given brewery
     // from the given templateStr
   },
 
-  getRecipe: function() {
-    // haven't read the API documentation on this yet
-    // but it'll work much like getRecipes() except for
-    // a single selected recipe
+  getbrewery: function() {
+
   }
 };

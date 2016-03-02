@@ -13,7 +13,8 @@ templates.recipeView = [
 ].join();
 
 var recipeApp = {
-  url: 'https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients  ',
+  url: 'http://api.brewerydb.com/v2/?key=68288be6b4c8586574d85c0174da8682',
+  apiKey: '68288be6b4c8586574d85c0174da8682',
 
   init: function() {
     recipeApp.events();

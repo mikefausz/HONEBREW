@@ -29,12 +29,9 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-<<<<<<< HEAD
   sudsTrackerApp.useGeolocation();
   sudsTrackerApp.initMap();
-=======
     // sudsTrackerApp.useGeolocation();
->>>>>>> 3eecbd756ec34666a0ceb6e45fe73f10bcfbace7
   },
 
   events: function() {
@@ -48,11 +45,9 @@ var sudsTrackerApp = {
         var coordObj = sudsTrackerApp.getBreweriesFromInput(location);
         // TODO get data from coordinates
       }
-<<<<<<< HEAD
 
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
-=======
         console.log('using geolocation');
         $('#home').removeClass('visible');
         $('#brewery-list').addClass('visible');
@@ -78,15 +73,8 @@ var sudsTrackerApp = {
       error: function(err) {
         console.log('err');
       }
->>>>>>> 3eecbd756ec34666a0ceb6e45fe73f10bcfbace7
     });
   },
-initMap: function (){
-  var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8});
-},
-
 
   initMap: function (coordsObj) {
     var  map = new google.maps.Map(document.getElementById('map'), {

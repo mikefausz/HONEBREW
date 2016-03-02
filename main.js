@@ -6,7 +6,15 @@ var templates = [];
 
 templates.breweryList = [
   // a template for each brewery listing in the photo grid
-].join();
+  '<a href="<%= website %>">'
+    '<li>'
+      '<div class="photo-div" style="background-image: url( <%= url %> )">'
+    '</li>'
+  '<a/>'
+  '<p class="name"><%= name %></p>',
+  '<p class="city"><%= city %></p>',
+  '<p class="distance"><%= distance %></p>'
+].join("");
 
 
 var sudsTrackerApp = {
@@ -63,18 +71,24 @@ var sudsTrackerApp = {
       return 'http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
   },
 
-  addBreweriesToDom: function(breweries, $target) {
-    var breweryListStr = "";
-    // for each brewery in breweries
-      // create a string from the breweryList template
-      // add the string to breweryListStr
-    // append/replace breweryListStr to breweryList html
+  brewTemplate: function(templateStr, brewery){
+    return _.template(breweries[templateStr])
+  }
+
+  addBreweriesToDom: function(templateStr,brewery $target) {
+    $target.html('');
+    var brewTmpl = sudsTrackerApp.brewTemplate(templateStr);
+    var htmlStr = "";
+    brewery.forEach(function(el) {
+      htmlStr += brewTmpl(el);
+    })
+    $target.html(htmlStr);
   },
 
-  constructBreweryHtml: function(templateStr, brewery) {
-    // construct an html string for the given brewery
-    // from the given templateStr
-  },
+  // constructBreweryHtml: function(templateStr, brewery) {
+  //   // construct an html string for the given brewery
+  //   // from the given templateStr
+  // },
 
   getbrewery: function() {
 

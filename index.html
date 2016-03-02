@@ -4,21 +4,31 @@
     <meta charset="utf-8">
     <title>Suds Tracker</title>
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
   </head>
   <body>
-    <section id="home">
-<header><h1>Suds Tracker</h1></header>
-<p><h2>Find great beer and breweries based on your current location or search by zipcode</h2>
-</p>
-<form class="" action="index.html" method="post">
-          <input type="text" placeholder="Enter Zipcode" name="zipSearch">
-        </form>
-          <button class="submit">Use My Current Location</button>
+    <section id="home" class="visible">
+      <div class="bg">
+        <div class="container">
+          <h1>Suds Tracker</h1>
+          <h3>Find great breweries based on your current location or search by zipcode</h3>
+          <form class="" action="index.html" method="post">
+            <input type="text" placeholder="Enter Zipcode" name="zipSearch">
+            <button class="submit">Use My Current Location</button>
+          </form>
+        </div>
+      </div>
     </section>
-
-    <section id="recipe-list">
+    <section id="brewery-list">
       <header class="main-page-header">
-        <h1>Suds Tracker</h1>
+        <h1>Breweries near [location]</h1>
+        <nav>
+          <h3>Search Again</h3>
+          <form class="" action="index.html" method="post">
+            <input type="text" placeholder="Enter Zipcode" name="zipSearch">
+            <button class="submit">Use My Current Location</button>
+          </form>
+        </nav>
       </header>
       <div class="recipe-container">
         <ul>
@@ -53,7 +63,7 @@
       </div>
     </section>
 
-    <select id="recipe-view">
+    <section id="brewery-view">
 
     </select>
 

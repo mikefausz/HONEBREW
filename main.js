@@ -5,20 +5,17 @@ $(document).ready(function() {
 var templates = [];
 
 templates.breweryList = [
+  // STILL TODO
   // a template for each brewery listing in the photo grid
-  '<a href="<%= website %>">'
+  '<a href="<%= URL_FROM_JSON %>">',
+    '<li>',
+      '<img src="<%= IMG_URL_FROM_JSON %>" alt="" />',
+      '<h2><%= BREWERY_NAME_FROM_JSON =></h2>',
     '<li>'
-      '<div class="photo-div" style="background-image: url( <%= url %> )">'
-    '</li>'
-  '<a/>'
-  '<p class="name"><%= name %></p>',
-  '<p class="city"><%= city %></p>',
-  '<p class="distance"><%= distance %></p>'
-].join("");
-
+].join();
 
 var sudsTrackerApp = {
-  url: '',
+  url: 'http://api.brewerydb.com/v2/search/geo/point?key=68288be6b4c8586574d85c0174da8682',
   apiKey: '68288be6b4c8586574d85c0174da8682',
 
   init: function() {
@@ -27,70 +24,80 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    sudsTrackerApp.getLocation();
+    // don't know if we'll need this
   },
 
   events: function() {
     $('form').on('submit', function(event) {
       event.preventDefault();
-      // add visible class to recipeList section
-      // remove visible class from other sections
-
       console.log("Submit");
-      var submitIngredients = $('input[type="text"]').val();
-      $('input[type="text"]').val("");
-      buildTrackerURL(coords);
+      // if input entered
+      if ($('input[type="text"]').val()){
+        var location = $('input[type="text"]').val();
+        $('input[type="text"]').val("");
+        // TODO get coordinates from city/zip input
+        // TODO get data from coordinates
+      }
+      // if no input, use current location
+      else {
+        console.log('using geolocation');
+        sudsTrackerApp.useGeolocation();
+      }
+      $('#home').removeClass('visible');
+      $('#brewery-list').addClass('visible');
     });
   },
 
-  getLocation: function () {
-    navigator.geolocation.getCurrentPosition(sudsTrackerApp.onPosition);
+  useGeolocation: function () {
+    navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },
 
-    // CLICK EVENT for a recipe listing
-    // preventDefault
-    // add visible class to recipeView section
-    // remove visible class from other sections
-    recipeApp.getRecipe();
-  },
+  // I think we can use getBreweryData instead - same but more descriptive
+  // onPosition: function (coordsObj) {
+  //   console.log('this is the object containing lat and lng: ', coordsObj);
+  //   $.ajax({
+  //     url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
+  //     method: "GET",
+  //     dataType: "json",
+  //     success: function (breweryData) {
+  //       console.log(breweryData.data);
+  //       sudsTrackerApp.getBreweryData(breweryData.data);
+  //     }
+  //   });
+  // },
 
-  getRecipes: function(ingredients) {
-    // parse input string for individual ingredients
-    // construct GET url from ingredients
+  getBreweryData: function(posObj) {
+    console.log('this is the object containing lat and lng: ', posObj);
     $.ajax({
-      url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
+      url: sudsTrackerApp.buildTrackerURL(posObj.coords),
       method: "GET",
-      dataType: "json",
-      success: function (dataFromBreweryDB) {
-         sudsTrackerApp.getData(dataBreweryDB);
+      dataType: "jsonp",
+      success: function (breweryData) {
+        console.log(breweryData.data);
+        sudsTrackerApp.addBreweriesToDOM(breweryData.data, $('ul'));
+      },
+      error: function(err) {
+        console.log('err');
       }
     });
   },
 
-  buildTrackerURL: function (coords) {
-      return 'http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
+  addBreweriesToDOM: function(data, $target) {
+    var breweryHtmlStr = "";
+    data.forEach(function(brewery) {
+      breweryHtmlStr += buildBreweryHtml(brewery);
+    });
+    $target.html(breweryHtmlStr);
   },
 
-  brewTemplate: function(templateStr, brewery){
-    return _.template(breweries[templateStr])
-  }
-
-  addBreweriesToDom: function(templateStr,brewery $target) {
-    $target.html('');
-    var brewTmpl = sudsTrackerApp.brewTemplate(templateStr);
-    var htmlStr = "";
-    brewery.forEach(function(el) {
-      htmlStr += brewTmpl(el);
-    })
-    $target.html(htmlStr);
+  buildTrackerURL: function (coordsObj) {
+      console.log('in buildTrackerURL');
+      console.log('lat =' + coordsObj.latitude + ' long=' + coordsObj.longitude);
+      return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
   },
 
-  // constructBreweryHtml: function(templateStr, brewery) {
-  //   // construct an html string for the given brewery
-  //   // from the given templateStr
-  // },
-
-  getbrewery: function() {
-
-  }
+  buildBreweryHtml: function(brewery) {
+    var breweryListTempl = _.template(templates.breweryList);
+    return complTodoTempl(brewery);
+  },
 };

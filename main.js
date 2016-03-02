@@ -5,12 +5,17 @@ $(document).ready(function() {
 var templates = [];
 
 templates.breweryList = [
+  // STILL TODO 
   // a template for each brewery listing in the photo grid
+  '<a href="<%= URL_FROM_JSON %>">',
+    '<li>',
+      '<img src="<%= IMG_URL_FROM_JSON %>" alt="" />',
+      '<h2><%= BREWERY_NAME_FROM_JSON =></h2>',
+    '<li>'
 ].join();
 
-
 var sudsTrackerApp = {
-  url: '',
+  url: 'http://api.brewerydb.com/v2/search/geo/point?key=68288be6b4c8586574d85c0174da8682',
   apiKey: '68288be6b4c8586574d85c0174da8682',
 
   init: function() {
@@ -19,55 +24,80 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    sudsTrackerApp.getLocation();
+    // don't know if we'll need this
   },
 
   events: function() {
     $('form').on('submit', function(event) {
       event.preventDefault();
-      // add visible class to recipeList section
-      // remove visible class from other sections
       console.log("Submit");
-      var submitIngredients = $('input[type="text"]').val();
-      $('input[type="text"]').val("");
-      buildTrackerURL(coords);
+      // if input entered
+      if ($('input[type="text"]').val()){
+        var location = $('input[type="text"]').val();
+        $('input[type="text"]').val("");
+        // TODO get coordinates from city/zip input
+        // TODO get data from coordinates
+      }
+      // if no input, use current location
+      else {
+        console.log('using geolocation');
+        sudsTrackerApp.useGeolocation();
+      }
+      $('#home').removeClass('visible');
+      $('#brewery-list').addClass('visible');
     });
   },
 
-  getLocation: function () {
-    navigator.geolocation.getCurrentPosition(sudsTrackerApp.onPosition);
+  useGeolocation: function () {
+    navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },
 
-  onPosition: function (coordsObj) {
-    console.log('this is the object containing lat and lng: ', coordsObj);
+  // I think we can use getBreweryData instead - same but more descriptive
+  // onPosition: function (coordsObj) {
+  //   console.log('this is the object containing lat and lng: ', coordsObj);
+  //   $.ajax({
+  //     url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
+  //     method: "GET",
+  //     dataType: "json",
+  //     success: function (breweryData) {
+  //       console.log(breweryData.data);
+  //       sudsTrackerApp.getBreweryData(breweryData.data);
+  //     }
+  //   });
+  // },
+
+  getBreweryData: function(posObj) {
+    console.log('this is the object containing lat and lng: ', posObj);
     $.ajax({
-      url: sudsTrackerApp.buildTrackerURL(coordsObj.coords),
+      url: sudsTrackerApp.buildTrackerURL(posObj.coords),
       method: "GET",
-      dataType: "json",
-      success: function (dataFromBreweryDB) {
-         sudsTrackerApp.getData(dataBreweryDB);
+      dataType: "jsonp",
+      success: function (breweryData) {
+        console.log(breweryData.data);
+        sudsTrackerApp.addBreweriesToDOM(breweryData.data, $('ul'));
+      },
+      error: function(err) {
+        console.log('err');
       }
     });
   },
 
-  buildTrackerURL: function (coords) {
-      return 'http://api.brewerydb.com/v2/search/geo/point?key=' + apiKey + "&lat="+coords.latitude + "&lon=" + coords.longitude;
+  addBreweriesToDOM: function(data, $target) {
+    var breweryHtmlStr = "";
+    data.forEach(function(brewery) {
+      breweryHtmlStr += buildBreweryHtml(brewery);
+    });
+    $target.html(breweryHtmlStr);
   },
 
-  addBreweriesToDom: function(breweries, $target) {
-    var breweryListStr = "";
-    // for each brewery in breweries
-      // create a string from the breweryList template
-      // add the string to breweryListStr
-    // append/replace breweryListStr to breweryList html
+  buildTrackerURL: function (coordsObj) {
+      console.log('in buildTrackerURL');
+      console.log('lat =' + coordsObj.latitude + ' long=' + coordsObj.longitude);
+      return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
   },
 
-  constructBreweryHtml: function(templateStr, brewery) {
-    // construct an html string for the given brewery
-    // from the given templateStr
+  buildBreweryHtml: function(brewery) {
+    var breweryListTempl = _.template(templates.breweryList);
+    return complTodoTempl(brewery);
   },
-
-  getbrewery: function() {
-
-  }
 };

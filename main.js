@@ -26,10 +26,22 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    // don't know if we'll need this
+    sudsTrackerApp.initMap();
   },
 
   events: function() {
+    $("h1").click(function() {
+      google.load("maps", "3", {other_params:'sensor=false', callback: function(){
+        alert('maps API loaded!');
+        var map;
+        function initMap() {
+          map = new google.maps.Map($('#map'), {
+            center: {lat: -34.397, lng: 150.644},
+            zoom: 8
+          });
+        };
+      }});
+    });
     $('form').on('submit', function(event) {
       event.preventDefault();
       console.log("Submit");
@@ -50,6 +62,12 @@ var sudsTrackerApp = {
     });
   },
 
+  initMap: function () {
+      var  map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+  },
   useGeolocation: function () {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },

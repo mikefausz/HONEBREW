@@ -9,6 +9,10 @@ section {
 .visible {
   display: block; }
 
+a {
+  color: black;
+  text-decoration: none; }
+
 #home input {
   display: block;
   margin: auto;
@@ -50,6 +54,17 @@ h3 {
     text-align: center; }
   #brewery-list h3, #brewery-list form {
     display: inline-block; }
+
+li {
+  width: 100%; }
+  li div {
+    display: inline-block;
+    vertical-align: top; }
+  li .brew-photo {
+    width: 30%;
+    background-position: center;
+    height: 125px;
+    margin-right: 15px; }
 
 .main-page-header {
   width: 100%; }

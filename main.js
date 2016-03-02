@@ -48,9 +48,7 @@ var sudsTrackerApp = {
 
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
-        console.log('using geolocation');
-        $('#home').removeClass('visible');
-        $('#brewery-list').addClass('visible');
+
 
     });
   },
@@ -130,3 +128,4 @@ var sudsTrackerApp = {
     return breweryListTempl(brewery);
   },
 };
+kfhgfuw

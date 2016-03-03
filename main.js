@@ -22,32 +22,38 @@ var sudsTrackerApp = {
   brewApiKey: '68288be6b4c8586574d85c0174da8682',
   mapsApiKey: 'AIzaSyCaH8lgDN19w9SyQ4mNqMMQwn9cHqLx4Bw',
   locationUrl: 'http://maps.googleapis.com/maps/api/geocode/json?address=',
+
   init: function() {
     sudsTrackerApp.events();
     sudsTrackerApp.styling();
   },
 
   styling: function() {
-    sudsTrackerApp.useGeolocation();
+    // sudsTrackerApp.useGeolocation();
   },
 
   events: function() {
     $('form').on('submit', function(event) {
       event.preventDefault();
-      console.log("Submit");
-      // if input entered
+      var distance = $(this).children("select").val();
       if ($(this).children('input').val()){
-        var location = $(this).children('input').val().trim().replace(" ", '');
-        var distance = $(this).children("select").val();
-
+        var location = $(this).children('input').val();
+        sudsTrackerApp.setHeaderHtml(location);
+        var parseLocation = location.trim().replace(" ", '');
         $(this).children('input').val('');
-        var coordObj = sudsTrackerApp.getBreweriesFromInput(location,distance);
-        // TODO get data from coordinates
+        var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, distance);
       }
-        console.log('using geolocation');
-        $('#home').removeClass('visible');
-        $('#brewery-list').addClass('visible');
+      else {
+        sudsTrackerApp.setHeaderHtml("your location");
+        sudsTrackerApp.useGeolocation();
+      }
+      $('#home').removeClass('visible');
+      $('#brewery-list').addClass('visible');
     });
+  },
+
+  setHeaderHtml: function(location) {
+    $('.main-page-header').find('h1').html("Breweries near " + location);
   },
 
   getBreweriesFromInput: function(location, distance) {
@@ -71,32 +77,24 @@ var sudsTrackerApp = {
     });
   },
 
-  initMap: function (coordsObj) {
-    var  map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: coordsObj.latitude, lng: coordsObj.longitude},
-        zoom: 12
-      });
-  },
-
   useGeolocation: function () {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },
 
   getBreweryData: function(posObj, distance) {
+    if (!distance) {
+      distance = 10;
+    }
     console.log('this is the object containing lat and lng: ', posObj);
     var urlRight = sudsTrackerApp.buildTrackerURL(posObj.coords);
     var urlObj = { url: sudsTrackerApp.buildTrackerURL(posObj.coords) };
-    sudsTrackerApp.initMap(posObj.coords);
-    // console.log(urlObj);
     $.ajax({
       url: 'https://sudstracker.herokuapp.com/any-request/' + encodeURIComponent(urlRight),
       // url: '10.0.10.68:3000/any-request/',
       method: "GET",
       data: urlObj,
       success: function (breweryData) {
-        console.log(JSON.parse(breweryData));
-        window.glob = JSON.parse(breweryData);
-        sudsTrackerApp.addBreweriesToDOM(JSON.parse(breweryData).data, distance, $('ul'));
+        sudsTrackerApp.addBreweriesToDOM(JSON.parse(breweryData).data, posObj.coords, distance, $('ul'));
       },
       error: function(err) {
         console.log('err');
@@ -104,26 +102,35 @@ var sudsTrackerApp = {
     });
   },
 
-  addBreweriesToDOM: function(data, distance, $target) {
+  buildTrackerURL: function (coordsObj) {
+      return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
+  },
+
+  addBreweriesToDOM: function(data, coords, distance, $target) {
     var breweryHtmlStr = "";
+    var map = sudsTrackerApp.initMap(coords);
     data.forEach(function(brewery) {
     if (brewery.distance < distance) {
+        new google.maps.Marker({
+          position: {lat: brewery.latitude, lng: brewery.longitude},
+          map: map,
+          title: brewery.brewery.name,
+        });
         breweryHtmlStr += sudsTrackerApp.buildBreweryHtml(brewery);
       }
     });
     $target.html(breweryHtmlStr);
   },
 
-  buildTrackerURL: function (coordsObj) {
-      // console.log('in buildTrackerURL');
-      // console.log('lat =' + coordsObj.latitude + ' lng=' + coordsObj.longitude);
-      // console.log(sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude);
-      return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
+  initMap: function (coordsObj) {
+      return new google.maps.Map(document.getElementById('map'), {
+        center: {lat: coordsObj.latitude, lng: coordsObj.longitude},
+        zoom: 12
+      });
   },
 
   buildBreweryHtml: function(brewery) {
     var breweryListTempl = _.template(templates.breweryList);
-    console.log(brewery);
     return breweryListTempl(brewery);
   },
 };

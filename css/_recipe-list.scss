@@ -4,6 +4,12 @@
   nav {
     text-align: center;
   }
+  #finding {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3rem;
+  }
   h3, form {
     display: inline-block;
   }
@@ -11,12 +17,12 @@
     padding: 0;
   }
 }
+
 li {
   width: 100%;
   div {
     display: inline-block;
     vertical-align: top;
-    // background-image: url('http://i.cbc.ca/1.3194454.1442511576!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_620/irrelevant-show-beer.jpg');
   }
   .brew-photo {
     width: 30%;

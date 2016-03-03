@@ -97,3 +97,6 @@ li {
 
 .recipe-container img {
   width: 30%; }
+
+#map-canvas {
+  height: 500px; }

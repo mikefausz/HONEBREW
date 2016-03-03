@@ -15,6 +15,10 @@ section {
 a {
   color: black;
   text-decoration: none;
+  &:hover {
+    color: rebeccapurple;
+    text-decoration: underline;
+  }
 }
 
 @import "home";

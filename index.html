@@ -13,12 +13,12 @@
           <h1>Suds Tracker</h1>
           <h3>Find great breweries based on your current location or search by zipcode</h3>
           <form class="" action="index.html" method="post">
-            <input type="text" placeholder="Enter Zipcode" name="zipSearch">
+            <input type="text" placeholder="Enter Location" name="zipSearch">
             <select class="mileageSelect" name="">
-              <option value=1>Within 1 miles</option>
-              <option value=2>Within 2 miles</option>
-              <option value=5>Within 5 miles</option>
               <option value=10>Within 10 miles</option>
+              <option value=5>Within 5 miles</option>
+              <option value=2>Within 2 miles</option>
+              <option value=1>Within 1 miles</option>
             </select>
             <button class="submit">Use My Current Location</button>
           </form>
@@ -29,21 +29,22 @@
       <header class="main-page-header">
         <h1>Breweries near [location]</h1>
         <nav>
-          <h3>Search Again</h3>
+          <h4>Search Again:</h4>
           <form id="reSearch" action="index.html" method="post">
-            <input type="text" placeholder="Enter Zipcode" name="zipSearch">
+            <input type="text" placeholder="Enter Location" name="zipSearch">
             <select class="mileageSelect" name="">
-              <option value=1>Within 1 miles</option>
-              <option value=2>Within 2 miles</option>
-              <option value=5>Within 5 miles</option>
               <option value=10>Within 10 miles</option>
+              <option value=5>Within 5 miles</option>
+              <option value=2>Within 2 miles</option>
+              <option value=1>Within 1 miles</option>
             </select>
             <button class="submit">Use My Location</button>
           </form>
         </nav>
+        <div id="map">
+        </div>
       </header>
-      <div id="map">
-      </div>
+
       <div class="recipe-container">
         <ul>
           <h1 id="finding">Finding nearby breweries...</h1>

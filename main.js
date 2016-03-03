@@ -5,13 +5,17 @@ $(document).ready(function() {
 var templates = {
   breweryList: [
     '<li>',
-        '<% if(brewery.images){ %>',
-          '<div class="brew-photo" style="background-image: url(<%= brewery.images.large %>)">',
+        // '<% if(brewery.image) { %>',
+          '<div class="brew-photo" style="background-image: url(<%= image %>)">',
           '</div>',
-        '<% } %>',
+        // '<% } %>',
       '<div>',
-        '<a href="<%= brewery.website %>"><h2><%= brewery.name %></h2></a>',
+        '<a href="<%= website %>"><h2><%= name %></h2></a>',
         '<p><%= distance %> miles from you</p>',
+        // '<% if(streetAddress) { %>',
+          "<a class='directions' href='http://maps.google.com/maps?z=&t=m&q<%= address %><%= city %><%= state %>'<span>Directions</span></a>",
+          // "<a class='directions' >'<span>Directions</span></a>",
+        // '<% } %>',
       '</div>',
     '<li>',
   ].join(""),
@@ -49,6 +53,12 @@ var sudsTrackerApp = {
       }
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
+    });
+    $('body').on('click', '.directions', function(event) {
+      event.preventDefault();
+      var newMap = sudsTrackerApp.initMap('map-canvas', {latitude: 32.778, longitude: -79.927});
+      $('#brewery-list').removeClass('visible');
+      $('#brewery-view').addClass('visible');
     });
   },
 
@@ -108,7 +118,7 @@ var sudsTrackerApp = {
 
   addBreweriesToDOM: function(data, coords, distance, $target) {
     var breweryHtmlStr = "";
-    var map = sudsTrackerApp.initMap(coords);
+    var map = sudsTrackerApp.initMap('map', coords);
     data.forEach(function(brewery) {
     if (brewery.distance < distance) {
         new google.maps.Marker({
@@ -122,15 +132,62 @@ var sudsTrackerApp = {
     $target.html(breweryHtmlStr);
   },
 
-  initMap: function (coordsObj) {
-      return new google.maps.Map(document.getElementById('map'), {
+  initMap: function (mapId, coordsObj) {
+      return new google.maps.Map(document.getElementById(mapId), {
         center: {lat: coordsObj.latitude, lng: coordsObj.longitude},
         zoom: 12
       });
   },
 
+  displayRoute: function() {
+
+    var start = new google.maps.LatLng(28.694004, 77.110291);
+    var end = new google.maps.LatLng(28.72082, 77.107241);
+
+    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
+    directionsDisplay.setMap(map); // map should be already initialized.
+
+    var request = {
+        origin : start,
+        destination : end,
+        travelMode : google.maps.TravelMode.DRIVING
+    };
+    var directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+  },
+
+  cleanBreweryData (brewery) {
+    var cleanBrew = {
+      name: brewery.brewery.name,
+      website: brewery.brewery.website,
+      distance: brewery.distance,
+    };
+    if (brewery.brewery.images) {
+      cleanBrew.image = brewery.brewery.images.large;
+    }
+    else {
+      cleanBrew.image = 'http://i.cbc.ca/1.3194454.1442511576!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_620/irrelevant-show-beer.jpg';
+    }
+    if (brewery.streetAddress) {
+      cleanBrew.address = brewery.streetAddress.replace(" ", '');
+      cleanBrew.city = brewery.locale;
+      cleanBrew.state = brewery.region;
+    }
+    else {
+      cleanBrew.address = '17PrincessSt';
+      cleanBrew.city = 'Charleston';
+      cleanBrew.state = 'SC';
+    }
+    return cleanBrew;
+  },
+
   buildBreweryHtml: function(brewery) {
+    cleanBrew = sudsTrackerApp.cleanBreweryData(brewery);
     var breweryListTempl = _.template(templates.breweryList);
-    return breweryListTempl(brewery);
+    return breweryListTempl(cleanBrew);
   },
 };

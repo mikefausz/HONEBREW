@@ -32,16 +32,15 @@ var sudsTrackerApp = {
   },
 
   styling: function() {
-    if (localStorage.getItem('searched')) {
-      $('#home').removeClass('visible');
-      $('#brewery-list').addClass('visible');
-    }
   },
 
   events: function() {
+    // ON FORM SUBMIT
     $('form').on('submit', function(event) {
       event.preventDefault();
+      // get search radius
       var distance = $(this).children("select").val();
+      // if location given, parse input, get brewery data
       if ($(this).children('input').val()){
         var location = $(this).children('input').val();
         sudsTrackerApp.setHeaderHtml(location);
@@ -49,33 +48,30 @@ var sudsTrackerApp = {
         $(this).children('input').val('');
         var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, distance);
       }
+      // otherwise get brewery data from browser location
       else {
-        sudsTrackerApp.setHeaderHtml("your location");
+        sudsTrackerApp.setHeaderHtml("you");
         sudsTrackerApp.useGeolocation();
       }
+      // show brewery listing page
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
-      // localStorage.setItem('searched', true);
     });
-    // $('body').on('click', '.directions', function(event) {
-    //   event.preventDefault();
-    //   var newMap = sudsTrackerApp.initMap('map-canvas', {latitude: 32.778, longitude: -79.927});
-    //   $('#brewery-list').removeClass('visible');
-    //   $('#brewery-view').addClass('visible');
-    // });
   },
 
+  // fill brewery listing page header with search location
   setHeaderHtml: function(location) {
     $('.main-page-header').find('h1').html("Suds near " + location);
   },
 
+  // get breweries within given radius of city/zip user input
   getBreweriesFromInput: function(location, distance) {
     $.ajax({
       url: sudsTrackerApp.locationUrl + location,
       method: "GET",
       success: function (locationObj) {
+        // get coordinates from input via Google Maps API
         var coords = locationObj.results[0].geometry.location;
-        window.loc = locationObj.results[0].geometry.location;
         var newCoordObj = {
           coords: {
             latitude: coords.lat,
@@ -90,15 +86,18 @@ var sudsTrackerApp = {
     });
   },
 
+  // get browser location, give to getBreweryData callback
   useGeolocation: function () {
     navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
   },
 
+  // get breweries within given radius of given position
   getBreweryData: function(posObj, distance) {
+    // provide a default search radius (for the useGeolocation function)
     if (!distance) {
       distance = 10;
     }
-    console.log('this is the object containing lat and lng: ', posObj);
+    // the next few lines are where Nathan feeds our request to his server
     var urlRight = sudsTrackerApp.buildTrackerURL(posObj.coords);
     var urlObj = { url: sudsTrackerApp.buildTrackerURL(posObj.coords) };
     $.ajax({
@@ -115,54 +114,42 @@ var sudsTrackerApp = {
     });
   },
 
+  // construct API search URL from coordinates
   buildTrackerURL: function (coordsObj) {
       return sudsTrackerApp.url + "&lat=" + coordsObj.latitude + "&lng=" + coordsObj.longitude;
   },
 
+  // add brewery listings to DOM, init Google Map with brewery pins
   addBreweriesToDOM: function(data, coords, distance, $target) {
     var breweryHtmlStr = "";
-    var map = sudsTrackerApp.initMap('map', coords);
-    data.forEach(function(brewery) {
-    if (brewery.distance < distance) {
+    // create new map centered on given coordinates
+    var map = sudsTrackerApp.initMap(coords);
+    _.each(data, function(brewery) {
+      // for each brewery within search radius
+      if (brewery.distance < distance) {
+        // drop a pin on the map at brewery coordinates
         new google.maps.Marker({
           position: {lat: brewery.latitude, lng: brewery.longitude},
           map: map,
           title: brewery.brewery.name,
         });
+        // add brewery listing HTML to master string
         breweryHtmlStr += sudsTrackerApp.buildBreweryHtml(brewery);
       }
     });
+    // add master string to DOM
     $target.html(breweryHtmlStr);
   },
 
-  initMap: function (mapId, coordsObj) {
-      return new google.maps.Map(document.getElementById(mapId), {
+  // initialize a Google Map centered on given coordinates
+  initMap: function (coordsObj) {
+      return new google.maps.Map(document.getElementById('map'), {
         center: {lat: coordsObj.latitude, lng: coordsObj.longitude},
         zoom: 12
       });
   },
 
-  displayRoute: function() {
-
-    var start = new google.maps.LatLng(28.694004, 77.110291);
-    var end = new google.maps.LatLng(28.72082, 77.107241);
-
-    var directionsDisplay = new google.maps.DirectionsRenderer();// also, constructor can get "DirectionsRendererOptions" object
-    directionsDisplay.setMap(map); // map should be already initialized.
-
-    var request = {
-        origin : start,
-        destination : end,
-        travelMode : google.maps.TravelMode.DRIVING
-    };
-    var directionsService = new google.maps.DirectionsService();
-    directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-        }
-    });
-  },
-
+  // map relevant brewery data to new object, providing defaults for missing fields
   cleanBreweryData (brewery) {
     var cleanBrew = {
       name: brewery.brewery.name,
@@ -190,6 +177,7 @@ var sudsTrackerApp = {
     return cleanBrew;
   },
 
+  // construct brewery listing HTML from template
   buildBreweryHtml: function(brewery) {
     cleanBrew = sudsTrackerApp.cleanBreweryData(brewery);
     var breweryListTempl = _.template(templates.breweryList);

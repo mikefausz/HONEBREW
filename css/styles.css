@@ -52,6 +52,11 @@ h3 {
   margin: 0 auto; }
   #brewery-list nav {
     text-align: center; }
+  #brewery-list #finding {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3rem; }
   #brewery-list h3, #brewery-list form {
     display: inline-block; }
   #brewery-list ul {

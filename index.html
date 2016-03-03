@@ -15,14 +15,13 @@
           <form class="" action="index.html" method="post">
             <input type="text" placeholder="Enter Zipcode" name="zipSearch">
             <select class="mileageSelect" name="">
+              <option value=1>Within 1 miles</option>
+              <option value=2>Within 2 miles</option>
               <option value=5>Within 5 miles</option>
               <option value=10>Within 10 miles</option>
-              <option value=15>Within 15 miles</option>
-              <option value=20>Within 20 miles</option>
             </select>
             <button class="submit">Use My Current Location</button>
           </form>
-
         </div>
       </div>
     </section>
@@ -34,48 +33,22 @@
           <form id="reSearch" action="index.html" method="post">
             <input type="text" placeholder="Enter Zipcode" name="zipSearch">
             <select class="mileageSelect" name="">
+              <option value=1>Within 1 miles</option>
+              <option value=2>Within 2 miles</option>
               <option value=5>Within 5 miles</option>
               <option value=10>Within 10 miles</option>
-              <option value=15>Within 15 miles</option>
-              <option value=20>Within 20 miles</option>
             </select>
-            <button class="submit">Use My Current Location</button>
+            <button class="submit">Use My Location</button>
           </form>
         </nav>
       </header>
       <div id="map">
-
       </div>
       <div class="recipe-container">
         <ul>
-          <a href="">
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-          <a/>
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-            <li>
-              <img src="https://www.fillmurray.com/200/300" alt="" />
-               <!-- <div class='photo-div' style='background-image: url( <%= url %> )'> -->
-            </li>
-        </a>
-      </ul>
+          <h1 id="finding">Finding nearby breweries...</h1>
+          <!-- load in brewery data -->
+         </ul>
       </div>
     </section>
 

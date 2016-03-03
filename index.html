@@ -27,10 +27,10 @@
     </section>
     <section id="brewery-list">
       <header class="main-page-header">
-        <h1>Breweries near [location]</h1>
+        <h1>Suds near [location]</h1>
         <nav>
           <h4>Search Again:</h4>
-          <form id="reSearch" action="index.html" method="post">
+          <form action="index.html" method="post">
             <input type="text" placeholder="Enter Location" name="zipSearch">
             <select class="mileageSelect" name="">
               <option value=10>Within 10 miles</option>
@@ -42,9 +42,9 @@
           </form>
         </nav>
         <div id="map">
+          <!-- load in Google Map -->
         </div>
       </header>
-
       <div class="recipe-container">
         <ul>
           <h1 id="finding">Finding nearby breweries...</h1>
@@ -52,21 +52,6 @@
          </ul>
       </div>
     </section>
-
-    <section id="brewery-view">
-      <div id="map-canvas">
-
-      </div>
-    </select>
-    <!-- <script>
-     var map;
-     function initMap() {
-       map = new google.maps.Map(document.getElementById('map'), {
-         center: {lat: -34.397, lng: 150.644},
-         zoom: 8
-       });
-     }
-   </script> -->
    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaH8lgDN19w9SyQ4mNqMMQwn9cHqLx4Bw"></script>
     <script src="bower_components/jquery/dist/jquery.js" charset="utf-8"></script>
     <script src="bower_components/underscore/underscore.js" charset="utf-8"></script>

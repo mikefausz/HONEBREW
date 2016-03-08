@@ -64,7 +64,7 @@ var sudsTrackerApp = {
 
   // fill brewery listing page header with search location
   setHeaderHtml: function(location) {
-    $('.main-page-header').find('h1').html("Suds near " + location);
+    $('.main-page-header').find('h3').html("Breweries near " + location + ":");
   },
 
   // get breweries within given radius of city/zip user input

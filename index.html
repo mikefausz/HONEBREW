@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Suds Tracker</title>
+    <title>Honebrew</title>
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
     <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
   </head>
@@ -10,7 +10,7 @@
     <section id="home" class="visible">
       <div class="bg">
         <div class="container">
-          <h1>Suds Tracker</h1>
+          <h1>Honebrew</h1>
           <h3>Find great breweries based on your current location or search by zipcode</h3>
           <form class="" action="index.html" method="post">
             <input type="text" placeholder="Enter Location" name="zipSearch">
@@ -20,16 +20,15 @@
               <option value=2>Within 2 miles</option>
               <option value=1>Within 1 miles</option>
             </select>
-            <button class="submit">Use My Current Location</button>
+            <button class="submit">Use Current Location</button>
           </form>
         </div>
       </div>
     </section>
     <section id="brewery-list">
       <header class="main-page-header">
-        <h1>Suds near [location]</h1>
+        <h1>Honebrew</h1>
         <nav>
-          <h4>Search Again:</h4>
           <form action="index.html" method="post">
             <input type="text" placeholder="Enter Location" name="zipSearch">
             <select class="mileageSelect" name="">
@@ -38,12 +37,13 @@
               <option value=2>Within 2 miles</option>
               <option value=1>Within 1 miles</option>
             </select>
-            <button class="submit">Use My Location</button>
+            <button class="submit">Use Current Location</button>
           </form>
         </nav>
         <div id="map">
           <!-- load in Google Map -->
         </div>
+        <h3>Breweries near [location]</h3>
       </header>
       <div class="recipe-container">
         <ul>

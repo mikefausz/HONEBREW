@@ -19,10 +19,10 @@ a {
 #home input {
   display: block;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   padding: 4px 32px;
   text-align: center;
-  font-size: 18px; }
+  font-size: 16px; }
 
 .bg {
   background-image: url(http://33.media.tumblr.com/a4550e4814f02d708f80e45bcf1296d9/tumblr_inline_nm6gm1BtZS1tpacqz.gif);
@@ -54,20 +54,24 @@ h3 {
   width: 90%;
   margin: 0 auto; }
   #brewery-list nav {
-    text-align: center; }
+    float: right;
+    display: inline-block;
+    margin-top: 34px; }
   #brewery-list #finding {
     font-style: italic;
     font-weight: bold;
     text-align: center;
     font-size: 3rem; }
-  #brewery-list h4, #brewery-list form {
-    display: inline-block; }
-  #brewery-list h4 {
-    font-family: 'Bree Serif', serif;
-    text-transform: uppercase; }
+  #brewery-list h3 {
+    margin: 8px 0;
+    font-size: 22px; }
   #brewery-list input {
-    padding: 2px;
-    text-align: center; }
+    display: block;
+    margin: auto;
+    margin-bottom: 8px;
+    padding: 4px 32px;
+    text-align: center;
+    font-size: 16px; }
   #brewery-list ul {
     padding: 0; }
   #brewery-list .brew-links {
@@ -76,8 +80,7 @@ h3 {
     margin-top: 34px; }
 
 #map {
-  height: 200px;
-  margin-bottom: 20px; }
+  height: 200px; }
 
 li {
   width: 100%;
@@ -105,21 +108,18 @@ li {
   top: 0;
   margin-bottom: 10px;
   background: white; }
-
-.main-page-header h1 {
-  font-size: 3em;
-  margin-top: 15px;
-  text-align: center; }
+  .main-page-header h1 {
+    font-size: 5em;
+    margin: 15px 0;
+    text-align: center;
+    display: inline-block; }
 
 .recipe-container {
   width: 100%;
   margin-top: 352px; }
-
-.recipe-container ul {
-  list-style: none; }
-
-.recipe-container li {
-  display: inline-block; }
-
-.recipe-container img {
-  width: 30%; }
+  .recipe-container ul {
+    list-style: none; }
+  .recipe-container li {
+    display: inline-block; }
+  .recipe-container img {
+    width: 30%; }

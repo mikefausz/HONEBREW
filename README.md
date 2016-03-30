@@ -1,5 +1,5 @@
 #HONEBREW
-A web app the maps breweries near you
+A web app that maps breweries near you
 
 ----------------------------------
 

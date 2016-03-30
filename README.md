@@ -1,4 +1,5 @@
-#SUDSTRACKER
+#HONEBREW
+A web app the maps breweries near you
 
 ----------------------------------
 

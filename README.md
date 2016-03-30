@@ -7,6 +7,7 @@ This project was created to fulfill a group assignment for The Iron Yard Charles
 Team:
 Frank Finger (https://github.com/franklinfinger
 Eric Clark (https://github.com/EricRClark)
+
 ----------------------------------
 
 Week 5, Day 3

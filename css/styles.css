@@ -1,0 +1,125 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+
+section {
+  display: none; }
+
+.visible {
+  display: block; }
+
+a {
+  color: black;
+  text-decoration: none; }
+  a:hover {
+    color: rebeccapurple;
+    text-decoration: underline; }
+
+#home input {
+  display: block;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 4px 32px;
+  text-align: center;
+  font-size: 18px; }
+
+.bg {
+  background-image: url("http://50.22.11.28/~happyhar/wp-content/uploads/2015/01/beer-suds_web.jpg");
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position-y: 0; }
+
+.container {
+  width: 60%;
+  margin: auto;
+  margin-top: 230px;
+  text-align: center; }
+
+h1 {
+  font-family: 'Bree Serif', serif;
+  text-transform: uppercase;
+  font-size: 6rem;
+  margin: 0;
+  line-height: 1; }
+
+h3 {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 1.16rem; }
+
+#brewery-list {
+  width: 90%;
+  margin: 0 auto; }
+  #brewery-list nav {
+    text-align: center; }
+  #brewery-list #finding {
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    font-size: 3rem; }
+  #brewery-list h4, #brewery-list form {
+    display: inline-block; }
+  #brewery-list h4 {
+    font-family: 'Bree Serif', serif;
+    text-transform: uppercase; }
+  #brewery-list input {
+    padding: 2px;
+    text-align: center; }
+  #brewery-list ul {
+    padding: 0; }
+  #brewery-list .brew-links {
+    text-align: right;
+    float: right;
+    margin-top: 34px; }
+
+#map {
+  height: 200px;
+  margin-bottom: 20px; }
+
+li {
+  width: 100%;
+  height: 125px;
+  padding: 15px 0;
+  border-bottom: 1px solid lightgrey; }
+  li div {
+    display: inline-block;
+    vertical-align: top; }
+  li .brew-photo {
+    width: 30%;
+    background-position: center;
+    height: 100%;
+    margin-right: 15px; }
+  li h2 {
+    font-family: 'Bree Serif', serif;
+    text-transform: uppercase;
+    margin: 0; }
+  li p {
+    margin: 5px 0; }
+
+.main-page-header {
+  width: 90%;
+  position: fixed;
+  top: 0;
+  margin-bottom: 10px;
+  background: white; }
+
+.main-page-header h1 {
+  font-size: 3em;
+  margin-top: 15px;
+  text-align: center; }
+
+.recipe-container {
+  width: 100%;
+  margin-top: 352px; }
+
+.recipe-container ul {
+  list-style: none; }
+
+.recipe-container li {
+  display: inline-block; }
+
+.recipe-container img {
+  width: 30%; }

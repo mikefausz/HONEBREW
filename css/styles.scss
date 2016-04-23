@@ -1,0 +1,25 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+section {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  &:hover {
+    color: rebeccapurple;
+    text-decoration: underline;
+  }
+}
+
+@import "home";
+@import "recipe-list";

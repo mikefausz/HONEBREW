@@ -2,16 +2,16 @@
   input {
   display: block;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   padding: 4px 32px;
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
   }
 }
 
 .bg {
-  background-image: url('http://50.22.11.28/~happyhar/wp-content/uploads/2015/01/beer-suds_web.jpg');
-  background-image: url('http://33.media.tumblr.com/a4550e4814f02d708f80e45bcf1296d9/tumblr_inline_nm6gm1BtZS1tpacqz.gif');
+  background-image: url(http://33.media.tumblr.com/a4550e4814f02d708f80e45bcf1296d9/tumblr_inline_nm6gm1BtZS1tpacqz.gif);
+  // background-image: url('http://50.22.11.28/~happyhar/wp-content/uploads/2015/01/beer-suds_web.jpg');
   position: absolute;
   width: 100%;
   height: 100%;
@@ -20,7 +20,7 @@
 }
 
 .container {
-  width: 60%;
+  width: 70%;
   margin: auto;
   margin-top: 230px;
   text-align: center;
@@ -35,7 +35,8 @@ h1 {
 }
 
 h3 {
+  font-family: 'Thirsty Script Extrabold Demo', Helvetica, sans-serif;
   margin: 0;
   margin-bottom: 10px;
-  font-size: 1.16rem;
+  font-size: 2.1rem;
 }

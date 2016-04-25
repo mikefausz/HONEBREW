@@ -26,6 +26,9 @@ var sudsTrackerApp = {
   mapsApiKey: 'AIzaSyCaH8lgDN19w9SyQ4mNqMMQwn9cHqLx4Bw',
   locationUrl: 'http://maps.googleapis.com/maps/api/geocode/json?address=',
 
+  // made this an object property so we can pass it to geolocation callback
+  distance: 10,
+
   init: function() {
     sudsTrackerApp.events();
     sudsTrackerApp.styling();
@@ -39,19 +42,19 @@ var sudsTrackerApp = {
     $('form').on('submit', function(event) {
       event.preventDefault();
       // get search radius
-      var distance = $(this).children("select").val();
+      sudsTrackerApp.distance = $(this).children("select").val();
       // if location given, parse input, get brewery data
       if ($(this).children('input').val()){
         var location = $(this).children('input').val();
         sudsTrackerApp.setHeaderHtml(location);
         var parseLocation = location.trim().replace(" ", '');
         $(this).children('input').val('');
-        var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, distance);
+        var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, sudsTrackerApp.distance);
       }
       // otherwise get brewery data from browser location
       else {
         sudsTrackerApp.setHeaderHtml("you");
-        sudsTrackerApp.useGeolocation();
+        sudsTrackerApp.useGeolocation(sudsTrackerApp.distance);
       }
       // show brewery listing page
       $('#home').removeClass('visible');
@@ -61,7 +64,7 @@ var sudsTrackerApp = {
 
   // fill brewery listing page header with search location
   setHeaderHtml: function(location) {
-    $('.main-page-header').find('h1').html("Suds near " + location);
+    $('.main-page-header').find('h3').html("Breweries near " + location + ":");
   },
 
   // get breweries within given radius of city/zip user input
@@ -87,16 +90,14 @@ var sudsTrackerApp = {
   },
 
   // get browser location, give to getBreweryData callback
-  useGeolocation: function () {
-    navigator.geolocation.getCurrentPosition(sudsTrackerApp.getBreweryData);
+  useGeolocation: function (distance) {
+    navigator.geolocation.getCurrentPosition(function(coords) {
+        sudsTrackerApp.getBreweryData(coords, sudsTrackerApp.distance);
+    });
   },
 
   // get breweries within given radius of given position
   getBreweryData: function(posObj, distance) {
-    // provide a default search radius (for the useGeolocation function)
-    if (!distance) {
-      distance = 10;
-    }
     // the next few lines are where Nathan feeds our request to his server
     var urlRight = sudsTrackerApp.buildTrackerURL(posObj.coords);
     var urlObj = { url: sudsTrackerApp.buildTrackerURL(posObj.coords) };

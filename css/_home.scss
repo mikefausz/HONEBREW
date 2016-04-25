@@ -1,3 +1,9 @@
+
+@font-face {
+  font-family: Thirsty Script Extrabold Demo;
+  src: local("Thirsty Script Extrabold Demo"),
+}
+
 #home {
   input {
   display: block;
@@ -20,7 +26,7 @@
 }
 
 .container {
-  width: 60%;
+  width: 70%;
   margin: auto;
   margin-top: 230px;
   text-align: center;
@@ -35,7 +41,8 @@ h1 {
 }
 
 h3 {
+  font-family: 'Thirsty Script Extrabold Demo', Helvetica, sans-serif;
   margin: 0;
   margin-bottom: 10px;
-  font-size: 1.16rem;
+  font-size: 2.1rem;
 }

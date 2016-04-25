@@ -2,7 +2,9 @@
   width: 90%;
   margin: 0 auto;
   nav {
-    text-align: center;
+    float: right;
+    display: inline-block;
+    margin-top: 34px;
   }
   #finding {
     font-style: italic;
@@ -10,16 +12,17 @@
     text-align: center;
     font-size: 3rem;
   }
-  h4, form {
-    display: inline-block;
-  }
-  h4 {
-    font-family: 'Bree Serif', serif;
-    text-transform: uppercase;
+  h3 {
+    margin: 8px 0;
+    font-size: 22px;
   }
   input {
-    padding: 2px;
+    display: block;
+    margin: auto;
+    margin-bottom: 8px;
+    padding: 4px 32px;
     text-align: center;
+    font-size: 16px;
   }
   ul {
     padding: 0;
@@ -33,7 +36,6 @@
 
 #map {
   height: 200px;
-  margin-bottom: 20px;
 }
 
 li {
@@ -67,27 +69,24 @@ li {
   top: 0;
   margin-bottom: 10px;
   background: white;
-}
-
-.main-page-header h1{
-  font-size: 3em;
-  margin-top: 15px;
-  text-align: center;
+  h1{
+    font-size: 5em;
+    margin: 15px 0;
+    text-align: center;
+    display: inline-block;
+  }
 }
 
 .recipe-container {
   width: 100%;
   margin-top: 352px;
-}
-
-.recipe-container ul {
-  list-style: none;
-}
-
-.recipe-container li{
-  display: inline-block;
-}
-
-.recipe-container img{
-  width: 30%;
+  ul {
+    list-style: none;
+  }
+  li{
+    display: inline-block;
+  }
+  img{
+    width: 30%;
+  }
 }

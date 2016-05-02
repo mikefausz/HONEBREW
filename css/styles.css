@@ -16,6 +16,9 @@ a {
     color: rebeccapurple;
     text-decoration: underline; }
 
+button {
+  width: 122px; }
+
 @font-face {
   font-family: Thirsty Script Extrabold Demo;
   src: local("Thirsty Script Extrabold Demo"); }

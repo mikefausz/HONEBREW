@@ -44,18 +44,18 @@ var sudsTrackerApp = {
       // get search radius
       sudsTrackerApp.distance = $(this).children("select").val();
       // if location given, parse input, get brewery data
-      if ($(this).children('input').val()){
+      // if ($(this).children('input').val()){
         var location = $(this).children('input').val();
         sudsTrackerApp.setHeaderHtml(location);
         var parseLocation = location.trim().replace(" ", '');
         $(this).children('input').val('');
         var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, sudsTrackerApp.distance);
-      }
+      // }
       // otherwise get brewery data from browser location
-      else {
-        sudsTrackerApp.setHeaderHtml("you");
-        sudsTrackerApp.useGeolocation(sudsTrackerApp.distance);
-      }
+      // else {
+      //   sudsTrackerApp.setHeaderHtml("you");
+      //   sudsTrackerApp.useGeolocation(sudsTrackerApp.distance);
+      // }
       // show brewery listing page
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');

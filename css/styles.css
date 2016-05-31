@@ -16,9 +16,12 @@ a {
     color: rebeccapurple;
     text-decoration: underline; }
 
+<<<<<<< HEAD
 button {
   width: 122px; }
 
+=======
+>>>>>>> c8f524b0610a3261c4762e7de5ab5f970c37f025
 @font-face {
   font-family: Thirsty Script Extrabold Demo;
   src: local("Thirsty Script Extrabold Demo"); }

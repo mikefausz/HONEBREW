@@ -24,7 +24,7 @@ var sudsTrackerApp = {
   url: 'http://api.brewerydb.com/v2/search/geo/point?key=68288be6b4c8586574d85c0174da8682',
   brewApiKey: '68288be6b4c8586574d85c0174da8682',
   mapsApiKey: 'AIzaSyCaH8lgDN19w9SyQ4mNqMMQwn9cHqLx4Bw',
-  locationUrl: 'http://maps.googleapis.com/maps/api/geocode/json?address=',
+  locationUrl: 'https://maps.googleapis.com/maps/api/geocode/json?address=',
 
   // made this an object property so we can pass it to geolocation callback
   distance: 10,
@@ -45,17 +45,20 @@ var sudsTrackerApp = {
       sudsTrackerApp.distance = $(this).children("select").val();
       // if location given, parse input, get brewery data
       // if ($(this).children('input').val()){
+
         var location = $(this).children('input').val();
         sudsTrackerApp.setHeaderHtml(location);
         var parseLocation = location.trim().replace(" ", '');
         $(this).children('input').val('');
         var coordObj = sudsTrackerApp.getBreweriesFromInput(parseLocation, sudsTrackerApp.distance);
+
       // }
       // otherwise get brewery data from browser location
       // else {
       //   sudsTrackerApp.setHeaderHtml("you");
       //   sudsTrackerApp.useGeolocation(sudsTrackerApp.distance);
       // }
+
       // show brewery listing page
       $('#home').removeClass('visible');
       $('#brewery-list').addClass('visible');
